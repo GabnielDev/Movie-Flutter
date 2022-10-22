@@ -1,8 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:movie_flutter/controller/detailmovie_controller.dart';
 import 'package:movie_flutter/utils/contants.dart';
@@ -14,11 +12,12 @@ class DetailMoviePage extends StatelessWidget {
   Widget build(BuildContext context) {
     var data = Get.arguments;
     var controller = Get.put(DetailMovieController.id(data[0]["id"]));
+    
     // final item = controller.detailMovieItem.value;
-    ThemeData themeData;
+    
     return Scaffold(
       body: Obx(() => controller.isLoading.value
-          ? Center(
+          ? const Center(
               child: CircularProgressIndicator(),
             )
           : Stack(
@@ -51,7 +50,7 @@ class DetailMoviePage extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0),
                           ),
-                          color: Colors.white,
+                          color: Colors.white70,
                           child: Column(
                             children: [
                               Padding(
@@ -66,7 +65,7 @@ class DetailMoviePage extends StatelessWidget {
                                       Text(
                                         controller.detailMovieItem.value.title
                                             .toString(),
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 18),
                                         maxLines: 2,
@@ -76,7 +75,7 @@ class DetailMoviePage extends StatelessWidget {
                                         padding: EdgeInsets.all(5),
                                         child: Row(
                                           children: [
-                                            Icon(
+                                            const Icon(
                                               Icons.star,
                                               color: Colors.red,
                                             ),
@@ -92,7 +91,8 @@ class DetailMoviePage extends StatelessWidget {
                               ),
                               Expanded(
                                   child: SingleChildScrollView(
-                                physics: BouncingScrollPhysics(),
+                                padding: const EdgeInsets.only(top: 30),
+                                physics: const BouncingScrollPhysics(),
                                 child: Column(
                                   children: [
                                     Container(
@@ -100,25 +100,24 @@ class DetailMoviePage extends StatelessWidget {
                                       child: ListView.separated(
                                         scrollDirection: Axis.horizontal,
                                         itemCount: controller.detailMovieItem
-                                            .value.genres!.length,
+                                            .value.genres.length,
                                         separatorBuilder: (context, index) =>
-                                            SizedBox(
-                                                // height: 10,
-                                                ),
+                                            const SizedBox(
+                                          height: 10,
+                                        ),
                                         itemBuilder: (context, index) {
                                           final item = controller
                                               .detailMovieItem
                                               .value
-                                              .genres?[index];
-                                              return _titleGenre(name: item!.name.toString());
-                                      
+                                              .genres[index];
+                                          return _titleGenre(
+                                              name: item.name.toString());
                                         },
                                       ),
                                     ),
-                                    // Text("Genre"),
                                     Column(
                                       children: [
-                                        Padding(
+                                        const Padding(
                                           padding:
                                               EdgeInsets.only(left: 8, top: 20),
                                           child: Text(
@@ -136,10 +135,13 @@ class DetailMoviePage extends StatelessWidget {
                                         Row(
                                           children: [
                                             Padding(
-                                              padding: EdgeInsets.only(
+                                              padding: const EdgeInsets.only(
                                                   left: 8.0, bottom: 4.0),
+                                                  
                                               child: Text(
                                                   "Release Date : ${controller.detailMovieItem.value.releaseDate}"),
+                                              
+                                             
                                             ),
                                           ],
                                         )
@@ -163,7 +165,7 @@ class DetailMoviePage extends StatelessWidget {
                               height: 150,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
+                                  boxShadow: const [
                                     BoxShadow(
                                         color: Colors.grey,
                                         blurRadius: 2.0,
@@ -187,13 +189,12 @@ class DetailMoviePage extends StatelessWidget {
 
 Widget _titleGenre({required String name}) {
   return Container(
-    margin: EdgeInsets.symmetric(horizontal: 10),
-    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 6),
+    margin: const EdgeInsets.only(left: 10),
+    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 6),
     decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(10),
-      border: Border.all(color: Colors.grey),
-      color: Colors.transparent
-    ),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Colors.grey),
+        color: Colors.transparent),
     child: Text(name),
   );
 }

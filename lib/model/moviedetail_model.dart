@@ -14,7 +14,7 @@ class DetailMovie {
         this.backdropPath,
         this.belongsToCollection,
         this.budget,
-        this.genres,
+        required this.genres,
         this.homepage,
         this.id,
         this.imdbId,
@@ -41,7 +41,7 @@ class DetailMovie {
     String? backdropPath;
     BelongsToCollection? belongsToCollection;
     int? budget;
-    List<Genre>? genres;
+    List<Genre> genres;
     String? homepage;
     int? id;
     String? imdbId;

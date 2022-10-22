@@ -1,13 +1,7 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_flutter/controller/movie_controller.dart';
 import 'package:movie_flutter/route/route_name.dart';
-import 'package:movie_flutter/route/route_page.dart';
 import 'package:movie_flutter/utils/contants.dart';
 
 class ListMoviePage extends StatelessWidget {
@@ -20,22 +14,22 @@ class ListMoviePage extends StatelessWidget {
         appBar: AppBar(),
         body: Obx(
           () => controller.isLoading.value
-              ? Center(
+              ? const Center(
                   child: CircularProgressIndicator(),
                 )
               : Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _titlePoster(title: "Now Playing"),
-                    Container(
+                    SizedBox(
                         height: 170,
                         // padding: EdgeInsets.symmetric(vertical: 10),
                         // margin: EdgeInsets.symmetric(vertical: 10),
                         child: ListView.separated(
                           scrollDirection: Axis.horizontal,
                           separatorBuilder: (context, index) => const SizedBox(
-                            // height: 30,
-                          ),
+                              // height: 30,
+                              ),
                           itemCount:
                               controller.nowPlayingList.value.results!.length,
                           itemBuilder: (context, index) {
@@ -51,8 +45,7 @@ class ListMoviePage extends StatelessWidget {
                                     ]);
                               },
                               child: _cardPoster(
-                                image: BASE_URL_POSTER +
-                                    item!.posterPath.toString(),
+                                image: item!.posterPath.toString(),
                               ),
                             );
                           },
@@ -80,8 +73,7 @@ class ListMoviePage extends StatelessWidget {
                                     ]);
                               },
                               child: _cardPoster(
-                                image: BASE_URL_POSTER +
-                                    item!.posterPath.toString(),
+                                image: item!.posterPath.toString(),
                               ),
                             );
                           },
@@ -89,7 +81,6 @@ class ListMoviePage extends StatelessWidget {
                     _titlePoster(title: "Popular"),
                     Container(
                       height: 170,
-                      
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         separatorBuilder: (context, index) => const SizedBox(
@@ -98,7 +89,7 @@ class ListMoviePage extends StatelessWidget {
                         itemCount: controller.popularList.value.results!.length,
                         itemBuilder: (context, index) {
                           final item =
-                              controller.popularList.value.results?[index];
+                              controller.popularList.value.results![index];
                           return InkWell(
                             onTap: () {
                               Get.toNamed(RouteName.detailmoviePage,
@@ -108,9 +99,8 @@ class ListMoviePage extends StatelessWidget {
                                     }
                                   ]);
                             },
-                            child: _cardPoster(
-                                image: BASE_URL_POSTER +
-                                    item!.posterPath.toString()),
+                            child:
+                                _cardPoster(image: item.posterPath.toString()),
                           );
                         },
                       ),
@@ -123,10 +113,10 @@ class ListMoviePage extends StatelessWidget {
 
 Widget _titlePoster({required String title}) {
   return Padding(
-    padding: EdgeInsets.only(left: 10, bottom: 5, top: 10),
+    padding: const EdgeInsets.only(left: 10, bottom: 5, top: 10),
     child: Text(
       title,
-      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
       textAlign: TextAlign.start,
     ),
   );
@@ -135,11 +125,12 @@ Widget _titlePoster({required String title}) {
 Widget _cardPoster({required String image}) {
   return Container(
     width: 115,
-    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
     decoration: BoxDecoration(
-        image: DecorationImage(image: NetworkImage(image), fit: BoxFit.fill),
+        image: DecorationImage(
+            image: NetworkImage(BASE_URL_POSTER + image), fit: BoxFit.fill),
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
               color: Colors.grey,
               blurRadius: 2.0,
